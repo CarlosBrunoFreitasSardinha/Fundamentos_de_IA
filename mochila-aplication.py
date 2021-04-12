@@ -30,6 +30,6 @@ while continuar == 's':
             individuo = calculaAptidaoMochila(individuo)#Calcula Aptidão de cada Cromossomo
 
       print("Geração {}".format(geracao))#Seleção
-      listaTop10 = dezMenores(listaPopulacao)#saida na tela: [[['10001000',0.54],['01000100',2.12],...,['11001100',4.43]]
+      listaTop10 = dezMenores(listaPopulacao)#saida na tela: [[['10001000',[0, 28]],['01000100',[0, 27]],...,['11001100',[1, 13]]]
       showEspecial(listaTop10)
       continuar = input("Deseja Continuar: ")
