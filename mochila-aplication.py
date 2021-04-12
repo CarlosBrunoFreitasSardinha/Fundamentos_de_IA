@@ -1,4 +1,7 @@
-from todasasfuncoes import *
+# listaqq = [[4, 2], [5, 2], [7, 3], [9, 4], [9, 3], [9, 5], [6, 4]]
+# print(sorted(listaqq, key=lambda c: (c[0],-c[1],)))
+
+from mochilateca import *
 
 listaDeGenes= []
 listaPopulacao= []
@@ -17,14 +20,14 @@ listaPopulacao = criaListaDeListas(listaDeGenes)
 while continuar == 's':
       geracao+=1
       if geracao>1:
-            if verificaTaxaVariabilidade(listaTop10):
+            if verificaTaxasVariabilidade(listaTop10):
                   i=randint(0,9)
                   listaTop10[i][0] = muda(listaTop10[i][0])
                   #CrossOver Ponto Unico
             listaDeGenes = combina(listaTop10)#saida: [['10101010','11111111'],['10101010','00110011'],... ['11111111','10101010'],...]
             listaPopulacao = efetuaCruzamento(listaDeGenes)#saida: [['10101111','10101111'],['10100011','00111010'],... ['11111010','11111010'],...]
       for individuo in listaPopulacao:
-            individuo = calculaAptidaoRaiz(individuo)#Calcula Aptidão de cada Cromossomo
+            individuo = calculaAptidaoMochila(individuo)#Calcula Aptidão de cada Cromossomo
 
       print("Geração {}".format(geracao))#Seleção
       listaTop10 = dezMenores(listaPopulacao)#saida na tela: [[['10001000',0.54],['01000100',2.12],...,['11001100',4.43]]

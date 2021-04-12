@@ -81,6 +81,23 @@ def cruzaUm(stringA,stringB):
 def cruzaDois(stringA,stringB):
     return [stringA[0:2]+''+stringB[2:6]+''+stringA[6:8], stringB[0:2]+''+stringA[2:6]+''+stringB[6:8]]
 
+#########################################################################
+
+
+def calculaAptidaoRaiz(individuoN):
+      decimal = converteBinarioReal(individuoN[0])
+      individuoN[1] = subtrai(decimal)
+      return individuoN
+
+def verificaTaxaVariabilidade(lista):
+      return (lista[-1][1]-lista[0][1]) < 1
+
+def efetuaCruzamento(lista):
+      algumacoisa = []
+      for combinacaoN in lista:
+            algumacoisa.append(cruzaUm(combinacaoN[0], combinacaoN[1]))
+      return algumacoisa
+
 def show(lista):#string.zfill(3)
     i=1
     for x in lista:
@@ -91,6 +108,7 @@ def showEspecial(lista):#string.zfill(3)
     for x in lista:
         print(f'{i:3d}', " - [", converteBinarioReal(x[0]), " - ", x[1])
         i+=1
+
 '''
 ListaTeste_1= []
 ListaTeste_2= []
