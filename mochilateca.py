@@ -2,7 +2,7 @@ from random import randint, random
 
 #função3
 def criaString():
-    return f'{randint(0,127):08b}'
+    return f'{randint(0,127):07b}'
 
 #função4
 def criaListaDeStrings():
@@ -92,10 +92,15 @@ def calculaAptidaoMochila(individuoN):
 def verificaTaxaVariabilidade(lista):
       return (lista[-1][1][0]-lista[0][1][0]) < 1
 
-def efetuaCruzamento(lista):
+def efetuaCruzamentoUm(lista):
       algumacoisa = []
       for combinacaoN in lista:
             algumacoisa.append(cruzaUm(combinacaoN[0], combinacaoN[1]))
+      return algumacoisa
+def efetuaCruzamentoDois(lista):
+      algumacoisa = []
+      for combinacaoN in lista:
+            algumacoisa.append(cruzaDois(combinacaoN[0], combinacaoN[1]))
       return algumacoisa
 
 def show(lista):#string.zfill(3)
@@ -106,5 +111,5 @@ def show(lista):#string.zfill(3)
 def showEspecial(lista):#string.zfill(3)
     i=1
     for x in lista:
-        print(f'{i:3d}', " - [", x[0][0], " - P=7   B=5 |", x[0][1], " - P=8   B=8 |", x[0][2], " - P=4   B=3 |", x[0][3], " - P=10   B=2 |", x[0][4], " - P=4   B=7 |", x[0][5], " - P=6   B=9 |", x[0][6], " - P=4   B=4 | FITNSS = ", x[1])
+        print(f'{i:3d}', " - [", x[0][0], " - P=7   B=5 |", x[0][1], " - P=8   B=8 |", x[0][2], " - P=4   B=3 |", x[0][3], " - P=10   B=2 |", x[0][4], " - P=4   B=7 |", x[0][5], " - P=6   B=9 |", x[0][6], " - P=4   B=4 | Cromo: ",x[0]," FITNSS = ", x[1])
         i+=1

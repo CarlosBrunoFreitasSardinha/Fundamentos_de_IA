@@ -20,14 +20,21 @@ listaPopulacao = criaListaDeListas(listaDeGenes)
 while continuar == 's':
       geracao+=1
       if geracao>1:
-            if verificaTaxasVariabilidade(listaTop10):
+            if verificaTaxaVariabilidade(listaTop10):
                   i=randint(0,9)
                   listaTop10[i][0] = muda(listaTop10[i][0])
                   #CrossOver Ponto Unico
+            
             listaDeGenes = combina(listaTop10)#saida: [['10101010','11111111'],['10101010','00110011'],... ['11111111','10101010'],...]
-            listaPopulacao = efetuaCruzamento(listaDeGenes)#saida: [['10101111','10101111'],['10100011','00111010'],... ['11111010','11111010'],...]
+            print("+"*40)
+            show(listaDeGenes)
+            listaPopulacao = efetuaCruzamentoDois(listaDeGenes)#saida: [['10101111','10101111'],['10100011','00111010'],... ['11111010','11111010'],...]
+            print("#"*40)
+            show(listaPopulacao)
+            print("*"*40)
       for individuo in listaPopulacao:
             individuo = calculaAptidaoMochila(individuo)#Calcula Aptidão de cada Cromossomo
+            print(individuo)
 
       print("Geração {}".format(geracao))#Seleção
       listaTop10 = dezMenores(listaPopulacao)#saida na tela: [[['10001000',[0, 28]],['01000100',[0, 27]],...,['11001100',[1, 13]]]
