@@ -88,16 +88,18 @@ def cruzamentoPontoUnico(stringA,stringB):
 #função12 efetua o cruzamento pelo conceito de ponto duplo
 def cruzamentoPontoDuplo(stringA,stringB):
     return [stringA[0:2]+''+stringB[2:6]+''+stringA[6:8], stringB[0:2]+''+stringA[2:6]+''+stringB[6:8]]
-####################################
+############################################################################################################
 
-
+#expõe um cromossomo a avaliação do seu fitness em todos os quesitos necessários
 def calculaAptidaoCaixa(individuoN):
       individuoN[1] = pesoBeneficoGene(individuoN[0])
       return individuoN
 
+#retorna se a taxa de variação do beneficio esta menor do que 1, para poder se aplicar mutação
 def verificaTaxaVariabilidade(lista):
     return (lista[-1][1][1]-lista[0][1][1]) < 1
 
+#recebe os genes que serão cruzados e qual tipo de cruzamento será efetuado
 def efetuaCruzamento(lista, tipo):
       algumacoisa = []
       for combinacaoN in lista:
@@ -108,14 +110,25 @@ def efetuaCruzamento(lista, tipo):
 
       return algumacoisa
 
+#apresenta uma lista de forma um tanto mais legivel, utilizada para testes e vizualização de saidas
 def show(lista):#string.zfill(3)
     i=1
     for x in lista:
         print(f'{i:3d}', " - ", x)
         i+=1
 
+#apresenta uma lista de forma a apresentar os itens contidos na caixa
 def showEspecial(lista):#string.zfill(3)
     i=1
     for x in lista:
-        print(f'{i:3d}', "-[", x[0][0], "-P=4 HotDog|", x[0][1], "-P=5 Chambari|", x[0][2], "-P=4 Cuscuz|", x[0][3], "-P=7 Guaraná|", x[0][4], "-P=6 Hamburguer|", x[0][5], "-P=5 Pizza|", x[0][6], "-P=3 Sarapatel|", x[0][7], "-P=4 Tapioca|"," => ",x[0]," FITNeSS = ", x[1])
+        print(f'{i:3d}', "-[",end='') 
+        if(x[0][0]=='1'): print( x[0][0],"-P=4 HotDog|",end='') 
+        if(x[0][1]=='1'): print(x[0][1], "-P=5 Chambari|",end='') 
+        if(x[0][2]=='1'): print(x[0][2], "-P=4 Cuscuz|",end='') 
+        if(x[0][3]=='1'): print(x[0][3], "-P=7 Guaraná|",end='')  
+        if(x[0][4]=='1'): print(x[0][4], "-P=6 Hamburguer|",end='')  
+        if(x[0][5]=='1'): print(x[0][5], "-P=5 Pizza|",end='') 
+        if(x[0][6]=='1'): print(x[0][6], "-P=3 Sarapatel|",end='')  
+        if(x[0][7]=='1'): print(x[0][7], "-P=4 Tapioca|",end='') 
+        print(" => ",x[0]," FITNeSS = ", x[1])
         i+=1
