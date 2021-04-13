@@ -1,28 +1,29 @@
 from random import randint, random
 
-#função3
-def criaString():
+#função1 cria um gene aleatório de 8 cromossomos
+def criaGeneAleatorio():
     return f'{randint(0,127):08b}'
 
-#função4
-def criaListaDeStrings():
-    lista_vazia = [criaString() for x in range(100)]
-    return lista_vazia
+#função2 cria lista de genes aleatorios
+def criaListaDeGenes():
+    listaItens = [criaGeneAleatorio() for x in range(100)]
+    return listaItens
 
-#função5
-def binarioSeguidoDeReal(string):
+#função3 cria de fato uma cromossomo com um campo fitness aleatorio
+def criaGeneComFitnessAleatorio(string):
     return [string, (randint(0,9)+round(random(), 2))]
 
-#função6
+#função4 cria uma popuçção de cromossomos
 def criaListaDeListas(lista):
-    lista_vazia = [binarioSeguidoDeReal(x) for x in lista]
-    return lista_vazia
+    listaItens = [criaGeneComFitnessAleatorio(x) for x in lista]
+    return listaItens
 
-#função7 FITNES
-def subtrai(numero):
+#função7 o quão perto aquele gene chegou do peso maximo
+def calculaPeso(numero):
     return numero > 25 and numero-25 or 25-numero
-
-def pesoCromossomo(numero):
+# função8 formula um fitness bidimensional, 
+# onde os dois critérios serão usados para definir a eficacia de cada solução
+def pesoBeneficoGene(numero):
     peso = 0
     ben = 0
     if numero[0] == '1':
@@ -49,14 +50,15 @@ def pesoCromossomo(numero):
     if numero[7] == '1':
         peso += 4
         ben  += 5
-    return [subtrai(peso), ben]
+    return [calculaPeso(peso), ben]
 
-#função8
-def dezMenores(lista):
+#função8 é o conceito de seleção, dentre os que tiveram menor peso na caixa
+# e maior beneficio
+def dezMaisAptos(lista):
     return sorted(lista, key=lambda x : (x[1][0], -x[1][1]))[0:10]
 
-#função9
-def muda(string):
+#função9 conceito de mutação, aplicado na fração de 1/10
+def mutacao(string):
     i = randint(0,7)
     newString = ''
     for x in range(len(string)):
@@ -69,7 +71,8 @@ def muda(string):
             newString = newString+string[x]
     return newString
 
-#função10
+#função10 efetua a criação de um lista de genes que serão expostos ao processo 
+# de cruzamento
 def combina(lista):
     superLista = []
     for i in range(10):
@@ -78,36 +81,31 @@ def combina(lista):
                 superLista.append([lista[i][0], lista[j][0]])
     return superLista
 
-#função11
-def cruzaUm(stringA,stringB):
+#função11 efetua o cruzamento pelo conceito de ponto unico
+def cruzamentoPontoUnico(stringA,stringB):
     return [stringA[0:4]+''+stringB[4:8], stringB[0:4]+''+stringA[4:8]]
 
-#função12
-def cruzaDois(stringA,stringB):
+#função12 efetua o cruzamento pelo conceito de ponto duplo
+def cruzamentoPontoDuplo(stringA,stringB):
     return [stringA[0:2]+''+stringB[2:6]+''+stringA[6:8], stringB[0:2]+''+stringA[2:6]+''+stringB[6:8]]
 ####################################
 
 
-def calculaAptidaoMochila(individuoN):
-      individuoN[1] = pesoCromossomo(individuoN[0])
+def calculaAptidaoCaixa(individuoN):
+      individuoN[1] = pesoBeneficoGene(individuoN[0])
       return individuoN
 
 def verificaTaxaVariabilidade(lista):
-    if (lista[-1][1][0]-lista[0][1][1]) < 1 and (lista[-1][1][1]-lista[0][1][1])!=0:
-        return 1
-    elif (lista[-1][1][1]-lista[0][1][1])==0:
-        return 0
-    return 2
+    return (lista[-1][1][1]-lista[0][1][1]) < 1
 
-def efetuaCruzamentoUm(lista):
+def efetuaCruzamento(lista, tipo):
       algumacoisa = []
       for combinacaoN in lista:
-            algumacoisa.append(cruzaUm(combinacaoN[0], combinacaoN[1]))
-      return algumacoisa
-def efetuaCruzamentoDois(lista):
-      algumacoisa = []
-      for combinacaoN in lista:
-            algumacoisa.append(cruzaDois(combinacaoN[0], combinacaoN[1]))
+            if tipo ==1:
+                algumacoisa.append(cruzamentoPontoUnico(combinacaoN[0], combinacaoN[1]))
+            elif tipo==2:
+                algumacoisa.append(cruzamentoPontoDuplo(combinacaoN[0], combinacaoN[1]))
+
       return algumacoisa
 
 def show(lista):#string.zfill(3)
@@ -115,6 +113,7 @@ def show(lista):#string.zfill(3)
     for x in lista:
         print(f'{i:3d}', " - ", x)
         i+=1
+
 def showEspecial(lista):#string.zfill(3)
     i=1
     for x in lista:
